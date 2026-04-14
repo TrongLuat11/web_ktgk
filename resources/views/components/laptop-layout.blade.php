@@ -118,22 +118,21 @@
                         <ul class="navbar-nav">
                             @foreach($categories as $category)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{url('laptop/theloai/'.$category->id)}}">{{$category->ten_danh_muc}}</a>
+                                    <a class="nav-link" href="{{ route('trinh.index', ['brand_id' => $category->id]) }}">{{$category->ten_danh_muc}}</a>
                                 </li>
                             @endforeach
                         </ul>
                     </div>
                     <div class="search-bar">
-                        <form method="post" action="{{url('/timkiem')}}">
-                            {{ csrf_field() }}
-                            <input type="text" name="keyword" placeholder="Tìm kiếm laptop...">
-                            <button class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        <form method="get" action="{{ route('trinh.index') }}">
+                            <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Tìm kiếm laptop...">
+                            <button class="search-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                    <a href="{{url('/gio-hang')}}" style='color:white;text-decoration:none;cursor:pointer;' class='mr-2'>
-                        <div style='position:relative; display:inline-block;'>
+                    <div style='color:white;position:relative; z-index: 50;' class='mr-2'>
+                        <a href="{{url('/gio-hang')}}" style='color:white;text-decoration:none;cursor:pointer;display:block;'>
                             <div style='width:20px; height:20px;background-color:#23b85c; font-size:12px; border:none; color:white;
-                                 border-radius:50%; position:absolute;right:2px;top:-2px; z-index: 10;' id='cart-number-product'>
+                                 border-radius:50%; position:absolute;right:2px;top:-2px; z-index: 10; text-align:center;' id='cart-number-product'>
                                     @if (session('cart'))
                                          {{ count(session('cart')) }}
                                     @else
@@ -141,8 +140,8 @@
                                     @endif
                             </div>
                             <i class="fa fa-cart-arrow-down fa-2x mr-2 mt-1" aria-hidden="true"></i>
-                        </div>
-                    </a>
+                        </a>
+                    </div>
 
                     <div class='col-2 p-0 d-flex'>
                         @auth
@@ -151,12 +150,11 @@
                                 {{ Auth::user()->name }}
                                 </button>
                                 <div class="dropdown-menu">
-                                <a class="dropdown-item" href="">Quản lý</a>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <a class="dropdown-item" href="{{ route('san-pham.index') }}">Quản lý</a>
+                                <form id="logout-form" method="POST" action="{{ route('logout') }}" style="display: none;">
                                     @csrf
-                                    <a class="dropdown-item" onclick="event.preventDefault();
-                                                        this.closest('form').submit();">Đăng xuất</a>
                                 </form>
+                                <a class="dropdown-item" href="javascript:void(0)" onclick="document.getElementById('logout-form').submit();">Đăng xuất</a>
                                 </div>
                             </div>
                         @else

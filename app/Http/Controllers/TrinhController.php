@@ -10,11 +10,15 @@ class TrinhController extends Controller
 {
     public function index(Request $request)
     {
-        $danh_mucs = DB::table('danh_muc_laptop')->get();
+        $categories = DB::table('danh_muc_laptop')->get();
         $query = DB::table('san_pham');
         
         if ($request->has('brand_id')) {
             $query->where('id_danh_muc', $request->brand_id);
+        }
+        
+        if ($request->has('keyword')) {
+            $query->where('tieu_de', 'like', '%' . $request->keyword . '%');
         }
         
         if ($request->has('sort')) {
@@ -30,17 +34,17 @@ class TrinhController extends Controller
         
         $laptops = $query->limit(20)->get();
         
-        return view('trinh.index', compact('laptops', 'danh_mucs'));
+        return view('laptop.index', compact('laptops', 'categories'));
     }
 
     public function show($id)
     {
-        $danh_mucs = DB::table('danh_muc_laptop')->get();
+        $categories = DB::table('danh_muc_laptop')->get();
         $laptop = DB::table('san_pham')->where('id', $id)->first();
         if(!$laptop) {
             abort(404);
         }
-        return view('trinh.show', compact('laptop', 'danh_mucs'));
+        return view('laptop.show', compact('laptop', 'categories'));
     }
 
     public function addToCart(Request $request, $id)
