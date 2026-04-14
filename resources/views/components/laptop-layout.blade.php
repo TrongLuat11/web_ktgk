@@ -130,19 +130,19 @@
                             <button class="search-btn"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>
-                    <div style='color:white;position:relative' class='mr-2'>
-                        <div style='width:20px; height:20px;background-color:#23b85c; font-size:12px; border:none;
-                             border-radius:50%; position:absolute;right:2px;top:-2px' id='cart-number-product'>
-                                @if (session('cart'))
-                                     {{ count(session('cart')) }}
-                                @else
-                                    0
-                                @endif
-                        </div>
-                        <a href="{{url('/gio-hang')}}" style='cursor:pointer;color:white;'>
+                    <a href="{{url('/gio-hang')}}" style='color:white;text-decoration:none;cursor:pointer;' class='mr-2'>
+                        <div style='position:relative; display:inline-block;'>
+                            <div style='width:20px; height:20px;background-color:#23b85c; font-size:12px; border:none; color:white;
+                                 border-radius:50%; position:absolute;right:2px;top:-2px; z-index: 10;' id='cart-number-product'>
+                                    @if (session('cart'))
+                                         {{ count(session('cart')) }}
+                                    @else
+                                        0
+                                    @endif
+                            </div>
                             <i class="fa fa-cart-arrow-down fa-2x mr-2 mt-1" aria-hidden="true"></i>
-                        </a>
-                    </div>
+                        </div>
+                    </a>
 
                     <div class='col-2 p-0 d-flex'>
                         @auth
