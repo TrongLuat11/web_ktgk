@@ -8,6 +8,7 @@ class SanPham extends Model
 {
     protected $table = 'san_pham';
     protected $primaryKey = 'id';
+    public $timestamps = false;
 
     protected $fillable = [
         'tieu_de',

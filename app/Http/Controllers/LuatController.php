@@ -32,16 +32,36 @@ class LuatController extends Controller
     }
 
     /**
-     * Process checkout and clear the shopping cart.
+     * Process checkout, send confirmation email, and clear the shopping cart.
      */
     public function datHang(Request $request)
     {
-        // Handle checkout business logic here (e.g., save to orders table)
-        
+        $cart = session()->get('cart', []);
+
+        if (empty($cart)) {
+            return redirect()->route('gio-hang')->with('error', 'Giỏ hàng trống!');
+        }
+
+        // Tính tổng tiền
+        $total = 0;
+        foreach ($cart as $item) {
+            $total += $item['price'] * $item['quantity'];
+        }
+
+        $paymentMethod = $request->input('payment_method', 'cash');
+        $user = auth()->user();
+        $customerName = $user ? $user->name : 'Khách hàng';
+        $customerEmail = $user ? $user->email : null;
+
+        // Gửi email xác nhận đơn hàng
+        if ($customerEmail) {
+            \Illuminate\Support\Facades\Mail::to($customerEmail)
+                ->send(new \App\Mail\OrderConfirmation($cart, $total, $paymentMethod, $customerName));
+        }
+
         // Clear the cart session
         session()->forget('cart');
 
-        // Redirect back with success message
-        return redirect()->route('gio-hang')->with('success', 'Bạn đã đặt hàng thành công!');
+        return redirect()->route('gio-hang')->with('success', 'Bạn đã đặt hàng thành công! Email xác nhận đã được gửi.');
     }
 }

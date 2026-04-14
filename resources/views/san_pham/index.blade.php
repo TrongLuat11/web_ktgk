@@ -3,9 +3,14 @@
 
     <div style="margin-top: 24px; margin-bottom: 30px;">
 
-        <h2 style="text-align:center; color:#1a73e8; font-weight:bold; font-size:20px; margin-bottom:18px; letter-spacing:1px;">
-            QUẢN LÝ SẢN PHẨM
-        </h2>
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h2 style="color:#1a73e8; font-weight:bold; font-size:20px; margin:0; letter-spacing:1px;">
+                QUẢN LÝ SẢN PHẨM
+            </h2>
+            <a href="{{ route('san-pham.create') }}" class="btn btn-primary btn-sm">
+                <i class="fa fa-plus"></i> Thêm sản phẩm
+            </a>
+        </div>
 
         @if(session('success'))
             <div class="alert alert-success alert-dismissible fade show" role="alert" style="font-size:14px;">

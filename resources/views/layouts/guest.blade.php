@@ -18,7 +18,7 @@
         <div class="min-h-screen flex flex-col sm:justify-center items-center pt-6 sm:pt-0 bg-gray-100">
             <div>
                 <a href="/">
-                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="object-contain mix-blend-multiply -mb-4 -mt-4" style="width: 120px; height: auto;" />
+                    <img src="{{ asset('images/logo.png') }}" alt="Logo" class="object-contain mix-blend-multiply" style="width: 80px; height: auto;" />
                 </a>
             </div>
 
