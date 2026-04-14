@@ -118,14 +118,15 @@
                         <ul class="navbar-nav">
                             @foreach($categories as $category)
                                 <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('trinh.index', ['brand_id' => $category->id]) }}">{{$category->ten_danh_muc}}</a>
+                                    <a class="nav-link" href="{{url('laptop/theloai/'.$category->id)}}">{{$category->ten_danh_muc}}</a>
                                 </li>
                             @endforeach
                         </ul>
                     </div>
                     <div class="search-bar">
-                        <form method="get" action="{{ route('trinh.index') }}">
-                            <input type="text" name="keyword" value="{{ request('keyword') }}" placeholder="Tìm kiếm laptop...">
+                        <form method="post" action="{{url('/timkiem')}}">
+                            {{ csrf_field() }}
+                            <input type="text" name="keyword" placeholder="Tìm kiếm laptop..." value="{{ request('keyword') }}">
                             <button class="search-btn" type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
                         </form>
                     </div>

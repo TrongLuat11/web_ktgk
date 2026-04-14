@@ -1,12 +1,12 @@
 <?php
 
-use App\Http\Controllers\HomeController;
 use App\Http\Controllers\MinhController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\File;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\LuatController;
 use App\Http\Controllers\TrinhController;
+use App\Http\Controllers\TriController;
 
 Route::get('/storage/image/{filename}', function ($filename) {
     $path = base_path('storage/public/image/' . $filename);
@@ -18,6 +18,8 @@ Route::get('/storage/image/{filename}', function ($filename) {
 
 Route::get('/', [HomeController::class, 'index']);
 Route::get('/', [TrinhController::class, 'index'])->name('trinh.index');
+Route::post('/timkiem', [TriController::class, 'search']);
+Route::get('/laptop/theloai/{id}', [TriController::class, 'category']);
 Route::get('/laptop/{id}', [TrinhController::class, 'show'])->name('trinh.show');
 Route::post('/add-to-cart/{id}', [TrinhController::class, 'addToCart'])->name('trinh.addcart');
 
